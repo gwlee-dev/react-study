@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"
+        />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script type="text/babel">
+            const root = document.querySelector("#root");
+
+            const App = () => {
+                const [amount, setAmount] = React.useState(0);
+                const [flipped, setFlipped] = React.useState(0);
+                const onChange = (e) => {
+                    setAmount(e.target.value);
+                };
+                const reset = () => setAmount(0);
+                const onFlip = () => {
+                    reset();
+                    setFlipped((current) => !current);
+                };
+
+                return (
+                    <div className="container">
+                        <h1>Super Converter</h1>
+                        <div className="row mt-4">
+                            <div className="col">
+                                <label htmlFor="minutes" className="form-label">
+                                    Minutes
+                                </label>
+                                <input
+                                    id="minutes"
+                                    className="form-control"
+                                    placeholder="Minutes"
+                                    type="number"
+                                    value={flipped ? amount * 60 : amount}
+                                    onChange={onChange}
+                                    disabled={flipped == true}
+                                />
+                            </div>
+                            <div className="col">
+                                <label htmlFor="hours" className="form-label">
+                                    Hours
+                                </label>
+                                <input
+                                    id="hours"
+                                    className="form-control"
+                                    placeholder="Hours"
+                                    type="number"
+                                    value={
+                                        flipped
+                                            ? amount
+                                            : Math.round(amount / 60)
+                                    }
+                                    onChange={onChange}
+                                    disabled={flipped == false}
+                                />
+                            </div>
+                            <div class="col-auto align-self-end">
+                                <button class="btn btn-primary" onClick={reset}>
+                                    Reset
+                                </button>
+                            </div>
+                            <div class="col-auto align-self-end">
+                                <button
+                                    class="btn btn-primary"
+                                    onClick={onFlip}
+                                >
+                                    Flip
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            ReactDOM.render(<App />, root);
+        </script>
+    </body>
+</html>
