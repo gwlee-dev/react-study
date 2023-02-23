@@ -6,12 +6,19 @@ import Board from "./Components/Board";
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   max-width: 680px;
   width: 100%;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  h1 {
+    font-weight: bold;
+    font-size: 32px;
+    color: white;
+    margin-bottom: 3rem;
+  }
 `;
 
 const Boards = styled.div`
@@ -56,6 +63,7 @@ function App() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
+        <h1>grello</h1>
         <Boards>
           {Object.keys(toDos).map((boardId) => (
             <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
